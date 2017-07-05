@@ -1,0 +1,15 @@
+{
+  "name": "csvRead",
+  "version": "1.0.0",
+  "description": "Quick little script for reading csv files, to help with my budgeting.",
+  "main": "index.js",
+  "repository": "https://github.com/idhere703/csvRead.git",
+  "author": "Brandon Underwood",
+  "license": "MIT",
+  "dependencies": {
+    "async": "^2.5.0",
+    "csv-parse": "^1.2.0",
+    "fs": "^0.0.1-security",
+    "q": "^1.5.0"
+  }
+}
