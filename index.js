@@ -1,27 +1,36 @@
 const fs = require('fs');
 const parse = require('csv-parse');
 const async = require('async');
-const Q = require('q');
 
 // If we don't have a file.
-if (process.argv.length < 1) {
+if (process.argv.length < 3) {
     process.exit(1);
 }
 
+const mapLines = (lines) => {
+    const headers = lines[0];
+    // Remove headers from array.
+    lines.shift();
+    // Set rest of lines.
+    const fileLines = lines.map((line) => {
+    });
+
+};
+
 const processLine = (line) => {
-    console.dir(line);
-    return Q();
+    // Move onto the next line.
+    return line;
 };
 
 const parser = parse({
     delimiter: ','
-}, function(err, data) {
+}, (err, data) => {
+    const lines = [];
     async.eachSeries(data, function(line, callback) {
-        processLine(line).then(function() {
-            // when processing finishes invoke the callback to move to the next one
-            callback();
-        });
-    })
+        lines.push(processLine(line));
+        callback();
+    });
+    mapLines(lines);
 });
 
 fs.createReadStream(process.argv[2]).pipe(parser);
