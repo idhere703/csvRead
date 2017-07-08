@@ -7,6 +7,8 @@ if (process.argv.length < 3) {
     process.exit(1);
 }
 
+const calculateExp = () => {};
+
 const mapLines = (lines) => {
     const headers = lines[0];
     // Remove headers from array.
@@ -14,6 +16,19 @@ const mapLines = (lines) => {
     // Set rest of lines.
     const fileLines = lines.map((line) => {
     });
+    
+    const data = fileLines.map(line => {
+        const columns = line.split(',');
+        const h = headers.split(',');
+        const ret = {};
+        columns.forEach((col, index) => {
+            ret[h[index]] = col;
+        });
+        
+        return ret;
+    });
+    
+    console.log(data);
 
 };
 
