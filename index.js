@@ -13,18 +13,13 @@ const mapLines = (lines) => {
     const headers = lines[0];
     // Remove headers from array.
     lines.shift();
-    // Set rest of lines.
-    const fileLines = lines.map((line) => {
-    });
-    
-    const data = fileLines.map(line => {
-        const columns = line.split(',');
-        const h = headers.split(',');
+    // Set rest of lines.    
+    const data = lines.map(line => {
+        const h = headers;
         const ret = {};
-        columns.forEach((col, index) => {
+        line.forEach((col, index) => {
             ret[h[index]] = col;
         });
-        
         return ret;
     });
     
