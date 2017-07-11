@@ -13,14 +13,14 @@ if (process.argv.length < 3) {
     process.exit(1);
 }
 
-
 // Calculate expenses minus any gains we might have had.
 const calculateExp = (data) => {
     return data.reduce((tot, line) => {
-        return tot += line[expenseFieldName] ? parseFloat(line[expenseFieldName]) : -(parseFloat(line[paymentFieldName]));
-    }, 0);
+        return tot += line[expenseFieldName] ? -parseFloat(line[expenseFieldName]) : parseFloat(line[paymentFieldName]);
+    }, 0).toFixed(2);
 };
 
+// Format the data for processing.
 const mapLines = (lines) => {
     const headers = lines[0];
     // Remove headers from array.
@@ -35,16 +35,16 @@ const mapLines = (lines) => {
         return ret;
     });
 
-    // console.log(data);
-    console.log(calculateExp(data));
-
+    return data;
 };
 
+// Do any additional necessary processing.
 const processLine = (line) => {
     // Move onto the next line.
     return line;
 };
 
+// Setup the parser.
 const parser = parse({
     delimiter: ','
 }, (err, data) => {
@@ -53,7 +53,9 @@ const parser = parse({
         lines.push(processLine(line));
         callback();
     });
-    mapLines(lines);
+    const lineItems = mapLines(lines);
+    const balance = calculateExp(lineItems);
+    console.log('Balance:', balance)
 });
 
 fs.createReadStream(process.argv[2]).pipe(parser);
